@@ -1,7 +1,4 @@
-import java.io.Console
-
 class Game(val target: Int) {
-    val console: Console? = System.console()
     var tries: Int = 0
     var guess: Int = 0
 
@@ -18,14 +15,23 @@ class Game(val target: Int) {
         }
     }
 
-    private fun makeAGuess(): String {
+    private fun makeAGuess(): Any {
         print("Make a guess (Press q to abort): ")
-        return readLine()!!
+        var input = readLine()!!
+
+        return if (input.toLowerCase() == "q") {
+            System.exit(0)
+        } else if (input.toIntOrNull() == null) {
+            println("Please enter an integer")
+            makeAGuess()
+        } else {
+            input.toInt()
+        }
     }
 
     fun run(): Unit {
         do {
-            guess = makeAGuess().toInt()
+            guess = makeAGuess() as Int
         } while (!compare(guess, target))
     }
 }

@@ -1,4 +1,5 @@
 fun main() {
-    var game = Game(45)
+    var target = parsePassword()
+    var game = Game(target)
     game.run()
 }
